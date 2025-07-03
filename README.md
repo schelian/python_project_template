@@ -3,7 +3,7 @@ This serves as a template/demonstration on how to make code easy for other to us
 
 This demonstration is focused on machine learning and the directory structure is loosely based on this [repo](https://github.com/StigTerrebonne/AIS-LSTM).  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).  
 
-The repo has some tutorial material on conda, pandas, sklearn, etc.  Feel free to ignore those for other applications.
+The repo has some tutorial material on conda, pandas, sklearn, etc.  Feel free to ignore those for other applications.  See sections with "Tutorial/reference" below.
 
 ## More details (read only once or referring back)
 Documentation makes sure your code can be build, run and understood by others.  
@@ -103,14 +103,25 @@ E.g., On average, it is 75% correct.  (Other performance metrics are …)
 ````conda create --name myenv [ python=3.11.9 ]````
 
 ## Installing packpages: conda install <pkg>
+Common ones
 ````
 conda install -c conda-forge matplotlib
+
 conda install -c conda-forge keras
+
 conda install -c conda-forge opencv-python 
 # if it fails, do pip install opencv-python
+
 conda install -c conda-forge scikit-learn
+
 conda install -c conda-forge ultralytics # YOLO
 conda install pytorch::torchvision
+````
+
+If conda does not upgrade, use pip instead.  E.g.
+````
+conda remove jsonargparse
+pip install jsonargparse
 ````
 
 ## Examine what's there: conda list
