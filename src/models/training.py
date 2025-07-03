@@ -4,9 +4,7 @@ import pandas as pd
 import os
 import numpy as np
 import pickle
-#from jsonargparse import ArgumentParser
 from jsonargparse import CLI
-#from jsonargparse import auto_cli
 
 def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = None, criterion: str = 'gini'):
     IN_DIR = f'../../data/{dataset}/processed/'
@@ -14,7 +12,7 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
 
     # Load    
     print( "Loading...")
-    print( f"Data from {IN_DIR} and saving model to {OUT_DIR}" )
+    print( f"Data from {IN_DIR} and saving to {OUT_DIR}" )
     X_train = pd.read_csv(IN_DIR + 'X_train.csv', header=None).to_numpy()
     y_train = pd.read_csv(IN_DIR + 'y_train.csv', header=None).to_numpy().ravel()
     os.makedirs(OUT_DIR, exist_ok=True)

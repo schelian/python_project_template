@@ -40,14 +40,18 @@ conda env export > environment.yml
 # Running
 
 ## Setup, data preprocessing
-Split data into training and testing splits.  This reads from data/raw and writes to data/processed.
+Split data into training and testing splits.  
+
+This reads from data/<dataset>/raw and writes to data/<dataset>/processed (X_train, y_train, etc.).
 ````
 cd src/data
 python preprocess_data.py
 ````
 
 ## Training
-Run the training portion, training.py.
+Run the training, training.py.
+
+This reads from data/<dataset>/processed and writes to models/<dataset>/ (y_train_pred.csv, etc.)
 !!
 To check the code is working OK: use ConfigFile_checkWorking and DataSet_checkWorking.  This should take 15 minutes.  
 This should take about 1 hour on a machine with a 8 GB GPU.  
@@ -59,11 +63,14 @@ To change parameters, change ConfigFile.csv.
 cd src/models
 
 python training.py
-# python training.py --dataset pima
+# python training.py --dataset="pima"
 ````
 
 ## Testing
-Run the testing portion, testing.py.
+Run the testing, testing.py.
+
+This reads from data/<dataset>/processed and writes to models/<dataset>/ (y_test_pred.csv, etc.)
+
 To check the code is working OK: use ConfigFile_checkWorking and DataSet_checkWorking.  This should take 15 minutes.    
 Total running time: This should take about 0.5 hours on a machine with a 8 GB GPU.  
 
@@ -72,7 +79,7 @@ Total running time: This should take about 0.5 hours on a machine with a 8 GB GP
 cd src/models
 
 python testing.py
-
+# python training.py --dataset="pima"
 ````
 
 ## Examine the results
@@ -85,6 +92,16 @@ It should look like this:
 ````
 Be sure to include results in aggregate, not just a few datapoints.
 E.g., On average, it is 75% correct.  (Other performance metrics are …)
+
+# How to go further
+
+## New dataset
+1. Put in data under its own directory, e.g., ./data/newdata  
+1. Update src/preprocess_data.py...
+
+## New algorithm
+1. Update src/model/training.py
+1. Update src/model/testing.py
 
 # Tutorial/reference for conda
 
