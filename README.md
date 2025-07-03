@@ -48,42 +48,31 @@ python preprocess_data.py
 
 ## Training
 Run the training portion, training.py.
+!!
 To check the code is working OK: use ConfigFile_checkWorking and DataSet_checkWorking.  This should take 15 minutes.  
 This should take about 1 hour on a machine with a 8 GB GPU.  
+!!
 
-To change datasets, change DataSet1 to DataSet2, etc.  
 To change parameters, change ConfigFile.csv.  
 * Parameters are in Config/DataSet1/ConfigFile.csv
-* Input data is in Data/DataSet1/Input/TrainingDataFile.csv
-* Outputs are saved to Save/DataSet1/Weights.csv (you could also save predictions, training curves, etc.)
 ````
 cd src/models
 
-python training.py \
-config/config1.csv \
-data/input/trainingData.csv \
-models/Weights.csv
+python training.py
+# python training.py --dataset pima
 ````
 
 ## Testing
-Run the testing portion, testing.py.py.
+Run the testing portion, testing.py.
 To check the code is working OK: use ConfigFile_checkWorking and DataSet_checkWorking.  This should take 15 minutes.    
 Total running time: This should take about 0.5 hours on a machine with a 8 GB GPU.  
 
-To change datasets, change DataSet1 to DataSet2, etc.  
-To change parameters, change ConfigFile.csv.  
 * Parameters are in Config/DataSet1/ConfigFile.csv
-* Input data is in Data/DataSet1/TestingDataFile.csv
-* Weights are in Save/DataSet1/Weights.csv
-* Outputs are saved to Save/DataSet1/TestingPredictions.csv
 ````
 cd src/models
 
-python testing.py \
-Config/DataSet1/ConfigFile.csv \
-Data/DataSet1/TestingDataFile.csv \
-Save/DataSet1/Weights.csv \
-Data/Dataset1/Final_Results/TestingPredictions.csv
+python testing.py
+
 ````
 
 ## Examine the results

@@ -1,14 +1,18 @@
 import pandas as pd
 import numpy as np
 
-IN_DIR = '../../data/raw/'
-OUT_DIR = '../../data/processed/'
-
+IN_DIR = '../../data/iris/raw/'
+OUT_DIR = '../../data/iris/processed/'
 df = pd.read_csv( IN_DIR + 'iris.csv' );
-print( df.head(3) )
-      
+print( df.head(3) )     
 df['Species'] = df['Species'].astype('category').cat.codes + 1  # Convert species to numeric codes starting from 1
-print( df.head(3) )
+
+IN_DIR = '../../data/pima/raw/'
+OUT_DIR = '../../data/pima/processed/'
+df = pd.read_csv( IN_DIR + 'diabetes.csv' );
+print( df.head(3) )     
+
+
 X = df.to_numpy()[:, :-1]  # Features (all columns except the last)
 y = df.to_numpy()[:, -1]   # Target (last column)
 print( X.shape, y.shape )
