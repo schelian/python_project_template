@@ -12,6 +12,7 @@ OUT_DIR = '../../data/pima/processed/'
 df = pd.read_csv( IN_DIR + 'diabetes.csv' );
 print( df.head(3) )     
 
+# update here for new datasets
 
 X = df.to_numpy()[:, :-1]  # Features (all columns except the last)
 y = df.to_numpy()[:, -1]   # Target (last column)

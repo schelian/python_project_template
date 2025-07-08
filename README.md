@@ -1,11 +1,11 @@
 # What is this
-This serves as a template/demonstration on how to make code easy for other to use--build, run and examine outputs.  
+This repository serves as a template/demonstration on how to make code easy for others to use--build, run and examine outputs.  
 
 This demonstration is focused on machine learning and the directory structure is loosely based on this [repo](https://github.com/StigTerrebonne/AIS-LSTM).  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).  
 
-The repo has some tutorial material on conda, pandas, sklearn, etc.  Feel free to ignore those for other applications.  See sections with "Tutorial/reference" below.
+The repo also has some tutorial material on conda, pandas, sklearn, etc.  Feel free to ignore those for other applications.  See sections with "Tutorial/reference" below for more details.
 
-## More details (read only once or referring back)
+## More details (read only once or when referring back)
 Documentation makes sure your code can be build, run and understood by others.  
 
 Keep this question in mind when you write a README.md: "If I was on vacation or sick, can my colleague/co-worker build and run my code?"  
@@ -33,6 +33,7 @@ conda deactivate
 ````
 
 Updating the conda environment file:
+Do this when you install a new package.
 ````
 conda env export > environment.yml
 ````
@@ -42,7 +43,7 @@ conda env export > environment.yml
 ## Setup, data preprocessing
 Split data into training and testing splits.  
 
-This reads from data/<dataset>/raw and writes to data/<dataset>/processed (X_train, y_train, etc.).
+This reads from data/\<dataset\>/raw and writes to data/\<dataset\>/processed (X_train, y_train, etc.).
 ````
 cd src/data
 python preprocess_data.py
@@ -51,35 +52,41 @@ python preprocess_data.py
 ## Training
 Run the training, training.py.
 
-This reads from data/<dataset>/processed and writes to models/<dataset>/ (y_train_pred.csv, etc.)
-!!
-To check the code is working OK: use ConfigFile_checkWorking and DataSet_checkWorking.  This should take 15 minutes.  
-This should take about 1 hour on a machine with a 8 GB GPU.  
-!!
+This reads from data/\<dataset\>/processed (X_train, y_train, etc.)and writes to models/\<dataset\>/ (y_train_pred.csv, etc.)  
 
-To change parameters, change ConfigFile.csv.  
-* Parameters are in Config/DataSet1/ConfigFile.csv
+This should take less than 2 minutes on laptop purchased within the last few years of 2025.
+
+To change the dataset, use the --dataset option.  
+To use a config file, use the --config option.
 ````
 cd src/models
 
 python training.py
 # python training.py --dataset="pima"
+# python training.py --config ../../config/iris_decision_tree.yaml
+# how to generate a sample config file: python training.py --print_config > sample_config.yaml 
+
+# can also do python training.py --help
 ````
 
 ## Testing
 Run the testing, testing.py.
 
-This reads from data/<dataset>/processed and writes to models/<dataset>/ (y_test_pred.csv, etc.)
+This reads from data/\<dataset\>/processed (X_test, y_test, etc.) and writes to models/\<dataset\>/ (y_test_pred.csv, etc.).  
 
-To check the code is working OK: use ConfigFile_checkWorking and DataSet_checkWorking.  This should take 15 minutes.    
-Total running time: This should take about 0.5 hours on a machine with a 8 GB GPU.  
+This should take less than 2 minutes on laptop purchased within the last few years of 2025.
 
-* Parameters are in Config/DataSet1/ConfigFile.csv
+To change the dataset, use the --dataset option.  
+To use a config file, use the --config option.
 ````
 cd src/models
 
 python testing.py
-# python training.py --dataset="pima"
+# python testing.py --dataset="pima"
+# python testing.py --config ../../config/iris_decision_tree.yaml
+# how to generate a sample config file: python testing.py --print_config > sample_config.yaml
+
+# can also do python testing.py --help
 ````
 
 ## Examine the results
@@ -97,11 +104,11 @@ E.g., On average, it is 75% correct.  (Other performance metrics are …)
 
 ## New dataset
 1. Put in data under its own directory, e.g., ./data/newdata  
-1. Update src/preprocess_data.py...
+1. Update src/preprocess_data.py. See portions that says "update here"
 
 ## New algorithm
-1. Update src/model/training.py
-1. Update src/model/testing.py
+1. Update src/model/training.py.  See portions that says "update here"
+1. Update src/model/testing.py. See portions that says "update here"
 
 # Tutorial/reference for conda
 
@@ -133,3 +140,7 @@ pip install jsonargparse
 ## Examine what's there: conda list
 
 ## Remove a package: conda remove <pkg>
+
+# Tutorial/reference for jsonargparse
+
+See [this link and their Github repo](https://speakerdeck.com/stecklin/jsonargparse-say-goodbye-to-configuration-hassles).  They use object-oriented programming (OOP).  It detracts the reader a little from simple uses of jsonargparse but can be helpful for greater modularity.

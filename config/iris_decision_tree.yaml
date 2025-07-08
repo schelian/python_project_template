@@ -1,0 +1,4 @@
+dataset: iris
+model: decision_tree
+max_depth: 3
+criterion: gini
