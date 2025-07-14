@@ -15,9 +15,11 @@ More specifically, at a minimum cover the following points in a README.md.
 1. How to run the code with different datasets or parameters
 1. How to examine the results
 1. EXTRA but good to have: expected output and time to run each step
-1. EXTRA EXTRA: how to extend the code for new datasets, parameters, models, etc. What calls, what, etc. The format of datasets and parameters can also be described.
+1. EXTRA EXTRA: how to extend the code for new datasets, parameters, models, etc. See "How to go further" below.
+1. EXTRA EXTRA EXTRA: What calls, what, etc. The format of datasets and parameters can also be described.
 
 # One time setup
+Conda simplifies python package management and environment isolation.  It lets you easily install packages and avoid conflicts across projects; it also make projects more reproducible/portable.
 ````
 conda env create -f environment.yml -n python_project_template
 ````
@@ -89,8 +91,8 @@ python testing.py
 # can also do python testing.py --help
 ````
 
-## Examine the results
-Look at models/decision_tree/y_test_pred.csv.  
+## Examining the results
+Look at models/\<dataset\>/\<model\>/y_test_pred.csv.  
 It should look like this:
 ````
 2.0
@@ -101,6 +103,10 @@ Be sure to include results in aggregate, not just a few datapoints.
 E.g., On average, it is 75% correct.  (Other performance metrics are …)
 
 # OPTIONAL: Setup with Docker
+
+Docker goes beyond conda by isolating the entire system environment, not just Python packages. E.g., docker can be used to isolate NVIDIA CUDA.
+
+It makes a single container that runs consistently across any platform. This makes Docker ideal for deploying applications, testing across environments, and ensuring true reproducibility.
 
 ## Build the docker: ````docker build -t python_project_template .````
 
@@ -139,8 +145,8 @@ Can go to "Everytime setup and cleanup" above
 1. Update src/preprocess_data.py. See portions that says "update here"
 
 ## New algorithm
-1. Update src/model/training.py.  See portions that says "update here"
-1. Update src/model/testing.py. See portions that says "update here"
+1. Update src/models/training.py.  See portions that says "update here"
+1. Update src/models/testing.py. See portions that says "update here"
 
 # Tutorial/reference for conda
 
