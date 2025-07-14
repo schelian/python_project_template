@@ -181,3 +181,5 @@ See [this link and their Github repo](https://speakerdeck.com/stecklin/jsonargpa
 # Tutorial/reference for docker
 
 ## How to install on WSL: https://gist.github.com/dehsilvadeveloper/c3bdf0f4cdcc5c177e2fe9be671820c7
+
+## How to setup Dockerfiles: https://data-ken.org/docker-for-data-scientists-part1

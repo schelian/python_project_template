@@ -11,6 +11,8 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
     for name, value in locals().items():
         print( f"{name}: {value}" )
     print( "Tracing done.\n" )
+    
+    rng = np.random.RandomState(0) # see https://scikit-learn.org/stable/common_pitfalls.html#getting-reproducible-results-across-multiple-executions for more details
 
     IN_DIR = f'../../data/{dataset}/processed/'
     OUT_DIR = f'../../models/{dataset}/{model}/'
@@ -30,7 +32,7 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
 
     # Train
     print( "Training..." )
-    clf = DecisionTreeClassifier()
+    clf = DecisionTreeClassifier(random_state=rng) # see https://scikit-learn.org/stable/common_pitfalls.html#getting-reproducible-results-across-multiple-executions for more details
     # update here for new models
 
     clf.fit(X_train, y_train)
