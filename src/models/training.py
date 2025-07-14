@@ -14,12 +14,17 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
 
     IN_DIR = f'../../data/{dataset}/processed/'
     OUT_DIR = f'../../models/{dataset}/{model}/'
+    print( f"Data from {IN_DIR} and saving to {OUT_DIR}" )
 
     # Load    
     print( "Loading...")
-    print( f"Data from {IN_DIR} and saving to {OUT_DIR}" )
-    X_train = pd.read_csv(IN_DIR + 'X_train.csv', header=None).to_numpy()
-    y_train = pd.read_csv(IN_DIR + 'y_train.csv', header=None).to_numpy().ravel()
+    fname = IN_DIR + 'X_train.csv'
+    print( f"Loading {fname}" )
+    X_train = pd.read_csv( fname, header=None).to_numpy()
+
+    fname = IN_DIR + 'y_train.csv'    
+    print( f"Loading {fname}" )
+    y_train = pd.read_csv( fname, header=None).to_numpy().ravel()
     os.makedirs(OUT_DIR, exist_ok=True)
     print( "Loading done.\n" )
 
@@ -32,21 +37,40 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
     y_train_pred = clf.predict(X_train)
 
     cm = confusion_matrix(y_train, y_train_pred)
-    accuracy = accuracy_score(y_train, y_train_pred) * 100  # percent correct
-    
+    accuracy = accuracy_score(y_train, y_train_pred) * 100.  # percent correct
     print("Confusion Matrix:\n", cm)
     print(f"Accuracy: {accuracy:.2f}%")
     print( "Training done.\n" )
 
     # Save
     print( "Saving..." )
+    # confusion matrix
     df_tmp = pd.DataFrame(cm)
-    df_tmp.to_csv( OUT_DIR + 'train_confusion_matrix.csv', index=False, header=False  )
+    fname = OUT_DIR + 'train_confusion_matrix.csv'
+    if not os.path.exists(fname):
+        print(f"Saving {fname}")
+    else:
+        print(f"Overwriting {fname}")
+    df_tmp.to_csv( fname, index=False, header=False  )
     
-    np.savetxt( f'{OUT_DIR}/y_train_pred.csv', y_train_pred, delimiter=',', fmt='%s') # could also do pandas
-    with open(f'{OUT_DIR}/decision_tree_model.pkl', 'wb') as f:
+    # training predictions
+    fname = OUT_DIR + 'y_train_pred.csv'
+    if not os.path.exists(fname):
+        print(f"Saving {fname}")
+    else:
+        print(f"Overwriting {fname}")    
+    np.savetxt( fname, y_train_pred, delimiter=',', fmt='%s') # could also do pandas
+
+    # model
+    # update here for new models   
+    fname = OUT_DIR + f'{model}_model.pkl'  
+    if not os.path.exists(fname):
+        print(f"Saving {fname}")
+    else:
+        print(f"Overwriting {fname}")              
+    with open( fname, 'wb') as f:
         pickle.dump(clf, f)
-    # update here for new models        
+     
     print( "Saving done.\n" )
 
 if __name__ == '__main__':

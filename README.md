@@ -35,7 +35,7 @@ conda deactivate
 Updating the conda environment file:
 Do this when you install a new package.
 ````
-conda env export > environment.yml
+conda env export --no-builds > environment.yml
 ````
 
 # Running
@@ -52,7 +52,7 @@ python preprocess_data.py
 ## Training
 Run the training, training.py.
 
-This reads from data/\<dataset\>/processed (X_train, y_train, etc.)and writes to models/\<dataset\>/ (y_train_pred.csv, etc.)  
+This reads from data/\<dataset\>/processed (X_train, y_train, etc.) and writes to models/\<dataset\>/\<model\> (y_train_pred.csv, etc.)  
 
 This should take less than 2 minutes on laptop purchased within the last few years of 2025.
 
@@ -72,7 +72,7 @@ python training.py
 ## Testing
 Run the testing, testing.py.
 
-This reads from data/\<dataset\>/processed (X_test, y_test, etc.) and writes to models/\<dataset\>/ (y_test_pred.csv, etc.).  
+This reads from data/\<dataset\>/processed (X_test, y_test, etc.) and writes to models/\<dataset\>/\<model\> (y_test_pred.csv, etc.).  
 
 This should take less than 2 minutes on laptop purchased within the last few years of 2025.
 
@@ -100,6 +100,24 @@ It should look like this:
 Be sure to include results in aggregate, not just a few datapoints.
 E.g., On average, it is 75% correct.  (Other performance metrics are …)
 
+# Setup, running with Docker
+
+## Build the docker: ````docker build -t python_project_template .````
+
+## Run it: ````docker run -it --rm -v `pwd`:/host python_project_template:latest /bin/bash````
+
+"-it" means runs an interactive terminal
+
+"-rm" means remove the docker container when it exits
+
+"-v" is to mount a volume.  The current working directory is mounted as a volume in the docker container.  Any changes you make to the files in docker appear on the host and vice versa (if you don't mount the host, changes are temporary)
+
+"python_project_template:latest" is the tag of the docker image
+
+"bin/bash" is the program to run after the docker comes up
+
+## Go back to "One time setup" above
+
 # How to go further
 
 ## New dataset
@@ -112,10 +130,16 @@ E.g., On average, it is 75% correct.  (Other performance metrics are …)
 
 # Tutorial/reference for conda
 
-## Creating an envt
-````conda create --name myenv [ python=3.11.9 ]````
+## Creating an environment
+````
+# new one
+conda create --name myenv [ python=3.11.9 ]
 
-## Installing packpages: conda install <pkg>
+# from a file
+conda env create -f environment.yml -n myenv
+````
+
+## Installing packpages: conda install \<pkg\>
 Common ones
 ````
 conda install -c conda-forge matplotlib
@@ -137,10 +161,23 @@ conda remove jsonargparse
 pip install jsonargparse
 ````
 
-## Examine what's there: conda list
+## Examine what packages are installed: conda list
 
-## Remove a package: conda remove <pkg>
+## Remove a package: conda remove \<pkg\>
+
+## Exporting to a file
+````
+conda env export --no-builds > environment.yml
+````
+
+## Seeing what environments there are: conda env list
+
+## Removing an environment: conda env remove --name \<env\>
 
 # Tutorial/reference for jsonargparse
 
 See [this link and their Github repo](https://speakerdeck.com/stecklin/jsonargparse-say-goodbye-to-configuration-hassles).  They use object-oriented programming (OOP).  It detracts the reader a little from simple uses of jsonargparse but can be helpful for greater modularity.
+
+# Tutorial/reference for docker
+
+## How to install on WSL: https://gist.github.com/dehsilvadeveloper/c3bdf0f4cdcc5c177e2fe9be671820c7

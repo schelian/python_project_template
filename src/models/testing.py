@@ -14,11 +14,16 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
 
     IN_DIR = f'../../data/{dataset}/processed/'
     OUT_DIR = f'../../models/{dataset}/{model}/'
+    print( f"Data from {IN_DIR} and saving to {OUT_DIR}" )
 
     # Load    
     print( "Loading...")
-    print( f"Data from {IN_DIR} and saving to {OUT_DIR}" )
-    X_test = pd.read_csv(IN_DIR + 'X_test.csv', header=None).to_numpy()
+    fname = IN_DIR + 'X_test.csv'
+    print( f"Loading {fname}" )
+    X_test = pd.read_csv( fname, header=None).to_numpy()
+    
+    fname = IN_DIR + 'y_test.csv'
+    print( f"Loading {fname}" )    
     y_test = pd.read_csv(IN_DIR + 'y_test.csv', header=None).to_numpy().ravel()
     os.makedirs(OUT_DIR, exist_ok=True)
     print( "Loading done.\n" )
@@ -31,18 +36,29 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
     y_test_pred = clf.predict(X_test)
 
     cm = confusion_matrix(y_test, y_test_pred)
-    accuracy = accuracy_score(y_test, y_test_pred) * 100  # percent correct
-    # @todo save these
-    
+    accuracy = accuracy_score(y_test, y_test_pred) * 100.  # percent correct
     print("Confusion Matrix:\n", cm)
     print(f"Accuracy: {accuracy:.2f}%")
     print( "Testing done.\n" )
 
     # Save
     print( "Saving..." )
+    # confusion matrix
     df_tmp = pd.DataFrame(cm)
-    df_tmp.to_csv( OUT_DIR + 'test_confusion_matrix.csv', index=False, header
-    np.savetxt( f'{OUT_DIR}/y_test_pred.csv', y_test_pred, delimiter=',', fmt='%s') # could also do pandas
+    fname = OUT_DIR + 'test_confusion_matrix.csv'
+    if not os.path.exists(fname):
+        print(f"Saving {fname}")
+    else:
+        print(f"Overwriting {fname}")    
+    df_tmp.to_csv( fname, index=False, header=False )
+    
+    # testing predictions    
+    fname = OUT_DIR + 'y_test_pred.csv'
+    if not os.path.exists(fname):
+        print(f"Saving {fname}")
+    else:
+        print(f"Overwriting {fname}")      
+    np.savetxt( fname, y_test_pred, delimiter=',', fmt='%s') # could also do pandas
     print( "Saving done.\n" )
 
 if __name__ == '__main__':
