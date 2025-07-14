@@ -3,7 +3,7 @@ This repository serves as a template/demonstration on how to make code easy for 
 
 This demonstration is focused on machine learning and the directory structure is loosely based on this [repo](https://github.com/StigTerrebonne/AIS-LSTM).  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).  
 
-The repo also has some tutorial material on conda, pandas, sklearn, etc.  Feel free to ignore those for other applications.  See sections with "Tutorial/reference" below for more details.
+The repo also has some tutorial material on conda, pandas, sklearn, docker, etc.  Feel free to ignore those for other applications.  See sections with "Tutorial/reference" below for more details.
 
 ## More details (read only once or when referring back)
 Documentation makes sure your code can be build, run and understood by others.  
@@ -100,7 +100,7 @@ It should look like this:
 Be sure to include results in aggregate, not just a few datapoints.
 E.g., On average, it is 75% correct.  (Other performance metrics are …)
 
-# Setup, running with Docker
+# OPTIONAL: Setup with Docker
 
 ## Build the docker: ````docker build -t python_project_template .````
 
@@ -116,7 +116,21 @@ E.g., On average, it is 75% correct.  (Other performance metrics are …)
 
 "bin/bash" is the program to run after the docker comes up
 
+You'll see something like this: ````(base) root@10cc2bd02adc:/host#````
+
 ## Go back to "One time setup" above
+
+## Exit the docker: ````exit````
+
+## Work in progress (WIP)
+### Getting the conda environment up and running in the Docker
+````
+docker build -t python_project_template_conda -f ./Dockerfile_conda .
+docker run -it --rm -v `pwd`:/host python_project_template_conda
+````
+The conda environment is built but is not automatically activated.
+Can go to "Everytime setup and cleanup" above
+
 
 # How to go further
 

@@ -1,0 +1,8 @@
+# Adapted from https://pythonspeed.com/articles/activate-conda-dockerfile/
+FROM continuumio/anaconda3:latest
+WORKDIR /host
+VOLUME "/host"
+COPY environment.yml .
+RUN conda env create -f environment.yml
+SHELL ["conda", "run", "-n", "python_project_template", "/bin/bash", "-c"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "python_project_template", "/bin/bash"]
