@@ -1,9 +1,16 @@
 # What is this
 This repository serves as a template/demonstration on how to make code easy for others to use--build, run and examine outputs.  
 
-This demonstration is focused on machine learning and the directory structure is loosely based on this [repo](https://github.com/StigTerrebonne/AIS-LSTM).  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).  
+This demonstration is focused on machine learning.  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).  
+* Config files are stored in ./config
+* Data is loaded from ./data/\<dataset\>
+* Results are written to ./models/\<dataset\>/\<model\>
+* Source code is in ./src.  
+  * ./src/data has code for data processing
+  * ./src/models has code for machine learning
+* Other files (environment.yml, Dockerfile, etc.) are for setup
 
-The repo also has some tutorial material on conda, pandas, sklearn, docker, etc.  Feel free to ignore those for other applications.  See sections with "Tutorial/reference" below for more details.
+The repo also has some tutorial material on conda, pandas, sklearn, docker, etc.  Feel free to ignore those for other applications.  See sections with "TUTORIAL/reference" below for more details.
 
 ## More details (read only once or when referring back)
 Documentation makes sure your code can be build, run and understood by others.  
@@ -42,7 +49,13 @@ conda env export --no-builds > environment.yml
 
 # Running
 
-## Setup, data preprocessing
+## Overview
+1. Data setup/preprocessing
+1. Training
+1. Testing
+1. Examining results
+
+## Data setup/preprocessing
 Split data into training and testing splits.  
 
 This reads from data/\<dataset\>/raw and writes to data/\<dataset\>/processed (X_train, y_train, etc.).
@@ -91,7 +104,7 @@ python testing.py
 # can also do python testing.py --help
 ````
 
-## Examining the results
+## Examining results
 Look at models/\<dataset\>/\<model\>/y_test_pred.csv.  
 It should look like this:
 ````
@@ -148,7 +161,7 @@ Can go to "Everytime setup and cleanup" above
 1. Update src/models/training.py.  See portions that says "update here"
 1. Update src/models/testing.py. See portions that says "update here"
 
-# Tutorial/reference for conda
+# TUTORIAL/reference for conda
 
 ## Creating an environment
 ````
@@ -194,11 +207,11 @@ conda env export --no-builds > environment.yml
 
 ## Removing an environment: conda env remove --name \<env\>
 
-# Tutorial/reference for jsonargparse
+# TUTORIAL/reference for jsonargparse
 
 See [this link and their Github repo](https://speakerdeck.com/stecklin/jsonargparse-say-goodbye-to-configuration-hassles).  They use object-oriented programming (OOP).  It detracts the reader a little from simple uses of jsonargparse but can be helpful for greater modularity.
 
-# Tutorial/reference for docker
+# TUTORIAL/reference for docker
 
 ## How to install on WSL: https://gist.github.com/dehsilvadeveloper/c3bdf0f4cdcc5c177e2fe9be671820c7
 
