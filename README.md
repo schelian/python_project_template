@@ -2,7 +2,8 @@
 This repository serves as a template/demonstration on how to make code easy for others to use--build, run and examine outputs.  
 
 This demonstration is focused on machine learning.  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).  
-* Config files are stored in ./config
+* Config files are stored in ./config.
+  * Using config files is optional but helps with reproducability (you can check new YAML files, compare them, etc.)
 * Data is loaded from ./data/\<dataset\>
 * Results are written to ./models/\<dataset\>/\<model\>
 * Source code is in ./src.  
@@ -10,7 +11,7 @@ This demonstration is focused on machine learning.  However, feel free to adapt 
   * ./src/models has code for machine learning
 * Other files (environment.yml, Dockerfile, etc.) are for setup
 
-The repo also has some tutorial material on conda, pandas, sklearn, docker, etc.  Feel free to ignore those for other applications.  See sections with "TUTORIAL/reference" below for more details.
+The repo. also has some tutorial material on conda, pandas, sklearn, docker, etc.  Feel free to ignore those for other applications.  See sections with "TUTORIAL/reference" below for more details.
 
 ## More details (read only once or when referring back)
 Documentation makes sure your code can be build, run and understood by others.  
@@ -27,19 +28,25 @@ More specifically, at a minimum cover the following points in a README.md.
 
 # One time setup
 Conda simplifies python package management and environment isolation.  It lets you easily install packages and avoid conflicts across projects; it also make projects more reproducible/portable.
+
+This will set up a conda environment.
 ````
 conda env create -f environment.yml -n python_project_template
 ````
 
 # Everytime setup and cleanup
+This will activate the conda environment.
 ````
 conda activate python_project_template
 ````
+The terminal prompt will have the python_project_template as a prefix like so:  ````(python_project_template) username@machineName:directoryName$````
 
 Do this when done:
+This will deactivate the conda environment.
 ````
 conda deactivate
 ````
+python_project_template should remove itself from the prompt like so: ````(base) username@machineName:directoryName$````
 
 Updating the conda environment file:
 Do this when you install a new package.
@@ -77,11 +84,15 @@ To use a config file, use the --config option.
 cd src/models
 
 python training.py
+# different dataset
 # python training.py --dataset="pima"
+#
+# using config files
 # python training.py --config ../../config/iris_decision_tree.yaml
+#
 # how to generate a sample config file: python training.py --print_config > sample_config.yaml 
-
-# can also do python training.py --help
+#
+# you can also do python training.py --help
 ````
 
 ## Testing
@@ -97,11 +108,15 @@ To use a config file, use the --config option.
 cd src/models
 
 python testing.py
+# different dataset
 # python testing.py --dataset="pima"
+#
+# using config files
 # python testing.py --config ../../config/iris_decision_tree.yaml
+#
 # how to generate a sample config file: python testing.py --print_config > sample_config.yaml
-
-# can also do python testing.py --help
+#
+# you can also do python testing.py --help
 ````
 
 ## Examining results
@@ -115,15 +130,33 @@ It should look like this:
 Be sure to include results in aggregate, not just a few datapoints.
 E.g., On average, it is 75% correct.  (Other performance metrics are …)
 
-# OPTIONAL: Setup with Docker
-
+# OPTIONAL: Using Docker
 Docker goes beyond conda by isolating the entire system environment, not just Python packages. E.g., docker can be used to isolate NVIDIA CUDA.
 
-It makes a single container that runs consistently across any platform. This makes Docker ideal for deploying applications, testing across environments, and ensuring true reproducibility.
+It makes a single container that runs consistently across any platform. This makes Docker good for deploying applications, testing across environments, and ensuring true reproducibility.
 
-## Build the docker: ````docker build -t python_project_template .````
+## One time setup, build the docker: 
+````docker build -t python_project_template . -f Dockerfile````
 
-## Run it: ````docker run -it --rm -v `pwd`:/host python_project_template:latest /bin/bash````
+This will build a docker image with the tag "python_project_template" using files in . and the instructions in Dockerfile.
+
+You'll see something like this:
+````
+[+] Building 0.1s (6/6) FINISHED                                                                         docker:default
+ => [internal] load build definition from Dockerfile                                                               0.0s
+ => => transferring dockerfile: 117B                                                                               0.0s
+ ...
+ => => writing image sha256:724830f41e16894a102b06ba6055bcae2ae97b5419f18061e9c2aa764d60bab2                       0.0s
+ => => naming to docker.io/library/python_project_template                                                         0.0s
+````
+
+## Everytime setup and cleanup
+## ````docker run -it --rm -v `pwd`:/host python_project_template:latest /bin/bash````
+* This will run an interactive terminal with the docker image "python_project_template", with the tag latest.
+* It will be removed when you type "exit" in the docker instance.
+* It will also mount local files as volume to the docker instance.  This means the docker instance can read and write local files.
+
+"python_project_template:latest" is the tag of the docker image
 
 "-it" means runs an interactive terminal
 
@@ -131,15 +164,13 @@ It makes a single container that runs consistently across any platform. This mak
 
 "-v" is to mount a volume.  The current working directory is mounted as a volume in the docker container.  Any changes you make to the files in docker appear on the host and vice versa (if you don't mount the host, changes are temporary)
 
-"python_project_template:latest" is the tag of the docker image
-
 "bin/bash" is the program to run after the docker comes up
 
-You'll see something like this: ````(base) root@10cc2bd02adc:/host#````
+You'll see something like this: ````(base) root@10cc2bd02adc:/host#````.  This means you are inside the docker instance.
 
 ## Go back to "One time setup" above
 
-## Exit the docker: ````exit````
+## Do this when done: ````exit````
 
 ## Work in progress (WIP)
 ### Getting the conda environment up and running in the Docker
@@ -163,10 +194,15 @@ Can go to "Everytime setup and cleanup" above
 
 # TUTORIAL/reference for conda
 
+## Installing conda
+Go [here](https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html).  For step one choose "Anaconda Distribution installer for Linux".
+
 ## Creating an environment
 ````
 # new one
-conda create --name myenv [ python=3.11.9 ]
+conda create --name myenv 
+# specify the python version:
+# conda create --name myenv python=3.11.9
 
 # from a file
 conda env create -f environment.yml -n myenv
