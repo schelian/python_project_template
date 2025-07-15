@@ -87,6 +87,9 @@ python training.py
 # different dataset
 # python training.py --dataset="pima"
 #
+# different algorithm
+# python training.py --model=knn
+#
 # using config files
 # python training.py --config ../../config/iris_decision_tree.yaml
 #

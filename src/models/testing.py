@@ -30,7 +30,8 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
 
     # Test
     print( "Testing..." )
-    with open(f'{OUT_DIR}/decision_tree_model.pkl', 'rb') as f:
+    fname = OUT_DIR + f'{model}_model.pkl'
+    with open(fname, 'rb') as f:
         clf = pickle.load(f)
     # update here for new models        
     y_test_pred = clf.predict(X_test)

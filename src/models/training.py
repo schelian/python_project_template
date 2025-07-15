@@ -1,4 +1,3 @@
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import confusion_matrix, accuracy_score
 import pandas as pd
 import os
@@ -32,7 +31,14 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
 
     # Train
     print( "Training..." )
-    clf = DecisionTreeClassifier(random_state=rng) # see https://scikit-learn.org/stable/common_pitfalls.html#getting-reproducible-results-across-multiple-executions for more details
+    if ( model == 'decision_tree' ):
+        from sklearn.tree import DecisionTreeClassifier
+        clf = DecisionTreeClassifier(random_state=rng) # see https://scikit-learn.org/stable/common_pitfalls.html#getting-reproducible-results-across-multiple-executions for more details
+    elif ( model == 'knn' ):
+        from sklearn.neighbors import KNeighborsClassifier
+        clf = KNeighborsClassifier()
+    else:
+        raise ValueError(f"Model {model} is not supported.")
     # update here for new models
 
     clf.fit(X_train, y_train)
@@ -53,7 +59,7 @@ def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = N
         print(f"Saving {fname}")
     else:
         print(f"Overwriting {fname}")
-    df_tmp.to_csv( fname, index=False, header=False  )
+    df_tmp.to_csv( fname, index=False, header=False, mode='w' )
     
     # training predictions
     fname = OUT_DIR + 'y_train_pred.csv'
