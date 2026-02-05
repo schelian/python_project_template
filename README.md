@@ -1,17 +1,32 @@
 # What is this
-This repository serves as a template/demonstration on how to make code easy for others to use--build, run and examine outputs.  
+This is a **template/teaching tool on how to make code easy for others to use--build, run and examine outputs.**  
 
-This demonstration is focused on machine learning.  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).  
-* Config files are stored in ./config.
-  * Using config files is optional but helps with reproducability (you can check new YAML files, compare them, etc.)
-* Data is loaded from ./data/\<dataset\>
-* Results are written to ./models/\<dataset\>/\<model\>
-* Source code is in ./src.  
-  * ./src/data has code for data processing
-  * ./src/models has code for machine learning
-* Other files (environment.yml, Dockerfile, etc.) are for setup
+This demonstration is *focused on machine learning.  However, feel free to adapt this to other data intensive applications (e.g., simulation, optimization, big data, etc.).*
+
+
+Files are arranged like so:
+| Directory / File Path                  | Description                                                                 |
+|---------------------------------------|-----------------------------------------------------------------------------|
+| `./config`                            | Optional configuration files (e.g., YAML) to improve reproducibility and enable easy version comparison. |
+| `./data/<dataset>`                   | Location where input datasets are stored and loaded from.                  |
+| `./models/<dataset>/<model>`          | Output directory where trained models and results are written.              |
+| `./src`                               | Main source code directory.                                                  |
+| `./src/data`                          | Code related to data loading, cleaning, and preprocessing.                  |
+| `./src/models`                        | Code related to machine learning models and training.                        |
+| `environment.yml`, `Dockerfile`, etc. | Environment setup and deployment configuration files.                        |
 
 The repo. also has some tutorial material on conda, pandas, sklearn, docker, etc.  Feel free to ignore those for other applications.  See sections with "TUTORIAL/reference" below for more details.
+
+## What this is not
+As a teaching tool, it is not very generic.  E.g., it assumes data files are in a CSV file--why not a JSON?, why not XML?, etc.
+
+Also, one could wrap the data load function to take input from a local file, a web URL, etc.  (Similarly for data save.)  
+
+Also, one could wrap the training function to support other models such as deep learning.  
+
+And so on.  
+
+Adding features like that is possible but would make the code less effective for pedagogy.
 
 ## More details (read only once or when referring back)
 Documentation makes sure your code can be build, run and understood by others.  
@@ -41,8 +56,7 @@ conda activate python_project_template
 ````
 The terminal prompt will have the python_project_template as a prefix like so:  ````(python_project_template) username@machineName:directoryName$````
 
-Do this when done:
-This will deactivate the conda environment.
+Do this when done; this will deactivate the conda environment.
 ````
 conda deactivate
 ````
@@ -154,7 +168,7 @@ You'll see something like this:
 ````
 
 ## Everytime setup and cleanup
-## ````docker run -it --rm -v `pwd`:/host python_project_template:latest /bin/bash````
+## ````docker run -it --rm -v `pwd`:/host python_project_template:latest -u $(id -u):$(id -g) /bin/bash````
 * This will run an interactive terminal with the docker image "python_project_template", with the tag latest.
 * It will be removed when you type "exit" in the docker instance.
 * It will also mount local files as volume to the docker instance.  This means the docker instance can read and write local files.
@@ -255,3 +269,5 @@ See [this link and their Github repo](https://speakerdeck.com/stecklin/jsonargpa
 ## How to install on WSL: https://gist.github.com/dehsilvadeveloper/c3bdf0f4cdcc5c177e2fe9be671820c7
 
 ## How to setup Dockerfiles: https://data-ken.org/docker-for-data-scientists-part1
+
+# TUTORIAL/reference for WSL

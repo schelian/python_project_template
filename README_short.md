@@ -10,10 +10,8 @@ This will activate the conda environment.
 ````
 conda activate python_project_template
 ````
-The terminal prompt will have the python_project_template as a prefix like so:  ````(python_project_template) username@machineName:directoryName$````
 
-Do this when done:
-This will deactivate the conda environment.
+Do this when done; this will deactivate the conda environment.
 ````
 conda deactivate
 ````
