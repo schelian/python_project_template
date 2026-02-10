@@ -212,7 +212,13 @@ Can go to "Everytime setup and cleanup" above
 # TUTORIAL/reference for conda
 
 ## Installing conda
-Go [here](https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html).  For step one choose "Anaconda Distribution installer for Linux".
+Go [here](https://docs.conda.io/projects/conda/en/stable/user-guide/install/linux.html).  For step one choose "Anaconda Distribution installer for Linux".  
+
+You may have to sign in.  Select "Linux" then "Anaconda Distribution" then "64-Bit (x86) Installer".  
+
+Download the shell file and run it (````sh Ananconda....sh````).  Default installation options should be fine.
+
+It will update your .bashrc.  If you get ````conda: command not found````, run the line in your ````.bashrc```` like this: ````. "/home/<user>/anaconda3/etc/profile.d/conda.sh"````
 
 ## Creating an environment
 ````
