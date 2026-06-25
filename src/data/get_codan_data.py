@@ -26,4 +26,7 @@ os.system( f'mv ./CODaN/data/test_day/* {OUT_DATA_DIR}/day' )
 dataset = CODaN(IN_DATA_DIR, split="test_night")
 os.system( f'mv ./CODaN/data/test_night/* {OUT_DATA_DIR}/night' )
 
+os.system( f'mkdir -p {OUT_DATA_DIR}/train' )
+os.system( f'mkdir -p {OUT_DATA_DIR}/val' )
+os.system( f'mkdir -p {OUT_DATA_DIR}/test' )
 
