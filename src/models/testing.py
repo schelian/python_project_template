@@ -6,31 +6,46 @@ import numpy as np
 import pickle
 from jsonargparse import CLI
 
-def main(dataset: str = 'iris', model: str = 'decision_tree', max_depth: int = None, criterion: str = 'gini'):
+def main(dataset: str = 'CODaN', model: str = 'decision_tree' ):
     print( "Tracing arguments..." )
     for name, value in locals().items():
         print( f"{name}: {value}" )
     print( "Tracing done.\n" )
 
     IN_DIR = f'../../data/{dataset}/processed/'
+    CSV_HDR = None
+    if dataset == 'CODaN':
+        IN_DIR = f'../../data/{dataset}/test/'
+        CSV_HDR = 0    
     OUT_DIR = f'../../models/{dataset}/{model}/'
     print( f"Data from {IN_DIR} and saving to {OUT_DIR}" )
 
     # Load    
-    print( "Loading...")
+    print( "Loading testing data...")
     fname = IN_DIR + 'X_test.csv'
     print( f"Loading {fname}" )
-    X_test = pd.read_csv( fname, header=None).to_numpy()
+    if not os.path.exists(fname) or not os.access(fname, os.R_OK):
+        raise FileNotFoundError(f'Cannot read test features file: {fname}')
+    X_test = pd.read_csv( fname, header=CSV_HDR ).to_numpy()
+    print("X_test first 2 rows:\n", X_test[:2])
+    print("X_test last 2 rows:\n", X_test[-2:])
     
     fname = IN_DIR + 'y_test.csv'
     print( f"Loading {fname}" )    
-    y_test = pd.read_csv(IN_DIR + 'y_test.csv', header=None).to_numpy().ravel()
+    if not os.path.exists(fname) or not os.access(fname, os.R_OK):
+        raise FileNotFoundError(f'Cannot read test labels file: {fname}')
+    y_test = pd.read_csv(IN_DIR + 'y_test.csv', header=CSV_HDR ).to_numpy().ravel()
+    print("y_test first 2 labels:\n", y_test[:2])
+    print("y_test last 2 labels:\n", y_test[-2:])    
+    
     os.makedirs(OUT_DIR, exist_ok=True)
     print( "Loading done.\n" )
 
     # Test
     print( "Testing..." )
     fname = OUT_DIR + f'{model}_model.pkl'
+    if not os.path.exists(fname) or not os.access(fname, os.R_OK):
+        raise FileNotFoundError(f'Cannot read model file: {fname}')    
     with open(fname, 'rb') as f:
         clf = pickle.load(f)
     # update here for new models        
