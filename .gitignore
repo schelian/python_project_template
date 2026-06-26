@@ -1,3 +1,26 @@
+# data files
+data/CODaN/train/*.jpg
+data/CODaN/test/*.jpg
+data/CODaN/val/*.jpg
+
+data/CODaN/train/*.JPEG
+data/CODaN/test/*.JPEG
+data/CODaN/val/*.JPEG
+
+data/CODaN/train/*.JPG
+data/CODaN/test/*.JPG
+data/CODaN/val/*.JPG
+
+data/CODaN/train/*.png
+data/CODaN/test/*.png
+data/CODaN/val/*.png
+
+data/CODaN/day/
+data/CODaN/night/
+
+# required to d/l the data but after you have the images, ignore the source directory
+src/data/CODaN/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
