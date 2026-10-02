@@ -1,4 +1,6 @@
-# download CODaN data
+# download CODaN data and move it into ../../data/CODaN/day and ../../data/CODaN/night
+
+# this is reading from test_day and test_night in ./CODaN that's the only data that has day or night
 import torch
 import sys
 import os
@@ -18,8 +20,6 @@ os.system( f'mkdir -p {OUT_DATA_DIR}/day' )
 os.system( f'mkdir -p {OUT_DATA_DIR}/night' )
 
 # only test_day and test_night have data by time of day so don't get train or val
-#dataset = CODaN(IN_DATA_DIR) 
-#dataset = CODaN(IN_DATA_DIR, split="val")
 dataset = CODaN(IN_DATA_DIR, split="test_day")
 os.system( f'mv ./CODaN/data/test_day/* {OUT_DATA_DIR}/day' )
 
